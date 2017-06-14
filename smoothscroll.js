@@ -51,7 +51,8 @@ var position = function(start, end, elapsed, duration) {
 // if the first argument is numeric then scroll to this location
 // if the callback exist, it is called when the scrolling is finished
 // if context is set then scroll that element, else scroll window
-var smoothScroll = function(el, duration, callback, context){
+var smoothScroll = function(el, pixelsOffset, duration, callback, context){
+    pixelsOffset = pixelsOffset || 0;
     duration = duration || 500;
     context = context || window;
     var start = context.scrollTop || window.pageYOffset;
@@ -61,7 +62,7 @@ var smoothScroll = function(el, duration, callback, context){
     } else {
       var end = getTop(el, start);
     }
-
+    end -= pixelsOffset;
     var clock = Date.now();
     var requestAnimationFrame = window.requestAnimationFrame ||
         window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame ||
